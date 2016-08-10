@@ -3,7 +3,7 @@
 Make ica fix qc pages for all specified files and creates and index html page of summary data.
 
 Usage:
-  epi-qc-icafix [options] <input.feat>...
+  icarus-report [options] <input.feat>...
 
 Arguments:
   <input.feat>  Top directory for the output file structure
