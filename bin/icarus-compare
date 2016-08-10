@@ -3,7 +3,7 @@
 Mash good and bad ica output pics together into on html page of sanity check qc.
 
 Usage:
-  ica_comparelabels_viewer.py [options] <labelname1> <labelname2> <input.ica>...
+  icarus_compare [options] <labelname1> <labelname2> <input.ica>...
 
 Arguments:
     <labelname1>       Filename containing first set of labels
