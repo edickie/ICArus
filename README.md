@@ -13,40 +13,49 @@ sudo python ./setup.py install
 ```
 
 ## Dependancies
-Python with packages, pandas, numpy and docopt.  
-While this programs do not require FSL or ICAFIX to be in order to work. They are built to work with outputs of these FSL [Melodic](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/MELODIC) and [ICAFIX](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX)labels.
+
+While this programs do not require FSL or ICAFIX to be in order to work. 
+They are built to work with outputs of these. 
+ + **FSL Melodic**[http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/MELODIC] 
+ + **ICAFIX**[http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX]
+
+Python dependancies (these will be installed when you install icarus if you don't already have them:
+ + pandas
+ + numpy 
+ + docopt  
 
 ## There are two executables:
-icarus-report : for generating an html report from one set of labels
-icarus-compare : For generating an html report comparing two sets of labels
++[**icarus-report**](#icarus-report) : for generating an html report from one set of labels
++[**icarus-compare**](#icarus-compare) : For generating an html report comparing two sets of labels
 
-### icarus-report : for generating an html report from one set of labels
-Make ica fix qc pages for all specified files and creates and index html page of summary data.
+### icarus-report 
 
-> Usage:
->  icarus-report [options] <input.feat>...
->
-> Arguments:
->  <input.feat>  Top directory for the output file structure
->
-> Options:
->  --html-out FILE          Name [default: qc_icafix.html] (fullpath) to index html file.
->  --labelfilename FILE     Name [default: fix4melview_Standard_thr20.txt] of file that contains labels.
->  --csvreport FILE         Name of csv output of summary stats.
->  --copy-qcdir PATH        Copy out all the qc files and the melodic report to the specified path
->  -v,--verbose             Verbose logging
->  --debug                  Debug logging in Erin's very verbose style
->  -n,--dry-run             Dry run
->  --help                   Print help
->
-> DETAILS
-> Runs makes an ica qc html page for all specified feat directories.
-> Writes an index page with some summary data.
->
-> Default name for --csvreport is "ica_fix_report_<labelfilename>.csv"
-> 
-> QC pages are interactive so that you can click buttons to manually rate signal and noise.
-> A text line shows up at the bottom with a command to save your ratings to hand_labels_noise.txt.
+```
+Usage:
+  icarus-report [options] <input.feat>...
+
+Arguments:
+  <input.feat>  Top directory for the output file structure
+
+Options:
+  --html-out FILE          Name [default: qc_icafix.html] (fullpath) to index html file.
+  --labelfilename FILE     Name [default: fix4melview_Standard_thr20.txt] of file that contains labels.
+  --csvreport FILE         Name of csv output of summary stats.
+  --copy-qcdir PATH        Copy out all the qc files and the melodic report to the specified path
+  -v,--verbose             Verbose logging
+  --debug                  Debug logging in Erin's very verbose style
+  -n,--dry-run             Dry run
+  --help                   Print help
+
+ DETAILS
+ Runs makes an ica qc html page for all specified feat directories.
+ Writes an index page with some summary data.
+
+ Default name for --csvreport is "ica_fix_report_<labelfilename>.csv"
+ 
+ QC pages are interactive so that you can click buttons to manually rate signal and noise.
+ A text line shows up at the bottom with a command to save your ratings to hand_labels_noise.txt.
+```
 
 # Some Examples:
 
@@ -98,7 +107,7 @@ icarus-report --copy-qcdir /path/to/copied/qc/files ${FEAT_OUTPUTS}
 ~~~
 
 ### icarus-compare
-
+```
 For generating an html report comparing two sets of labels
 
 Usage:
@@ -131,3 +140,4 @@ Default name for --csvreport is "compare_<labelname1>_vs_<labelname2>.csv"
 
 QC pages are interactive so that you can click buttons to manually rate signal and noise.
 A text line shows up at the bottom with a command to save your ratings to hand_labels_noise.txt.
+```
