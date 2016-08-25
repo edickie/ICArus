@@ -16,8 +16,8 @@ sudo python ./setup.py install
 
 While this programs do not require FSL or ICAFIX to be in order to work. 
 They are built to work with outputs of these. 
- + **FSL Melodic**[http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/MELODIC] 
- + **ICAFIX**[http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX]
+ + **FSL Melodic** http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/MELODIC 
+ + **ICAFIX** http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX
 
 Python dependancies (these will be installed when you install icarus if you don't already have them:
  + pandas
@@ -28,7 +28,7 @@ Python dependancies (these will be installed when you install icarus if you don'
 + [**icarus-report**](#icarus-report) : for generating an html report from one set of labels
 + [**icarus-compare**](#icarus-compare) : For generating an html report comparing two sets of labels
 
-See below from some [example usage](#examples) of each.
+See below from some [example usage](#usageexamples) of each.
 
 ## Using icarus in a preprocessing workflow
 
