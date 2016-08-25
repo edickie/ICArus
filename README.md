@@ -25,8 +25,28 @@ Python dependancies (these will be installed when you install icarus if you don'
  + docopt  
 
 ## There are two executables:
-+[**icarus-report**](#icarus-report) : for generating an html report from one set of labels
-+[**icarus-compare**](#icarus-compare) : For generating an html report comparing two sets of labels
++ [**icarus-report**](#icarus-report) : for generating an html report from one set of labels
++ [**icarus-compare**](#icarus-compare) : For generating an html report comparing two sets of labels
+
+See below from some [example usage](#examples) of each.
+
+## Using icarus in a preprocessing workflow
+
+#### For "hand-cleaning" your whole data set...(eek)
+1. Preprocesses your data however you would like (FSL's FEAT, MELODIC or epitome - pipeline tool)
+2. (If not already in your preprossing pipeline) run MELODIC ICA for each scan 
+    + if you are running melodic from the command line, make sure you are outputing the report.
+3. Run ICA fix using some relevant classifier to do a first pass of the data
+    + for most 3T fMRI data, the Standard.RData that come with FSL's fix is the best option
+4. Run _icarus-report_ to generate a html pages for visualization of the FIX classifiers results.
+5. View and re-adjust the ICA signal and noise labels using icarus-html interface
+6. Use ica fix to clean your data using your hand scored labels.
+
+#### For training your own fix classifier
+1. Run the above steps 1-5 on a subset of your data (~n=25??)
+2. Use ICA fix to train a new fix classifier using the labels you generated from your subset
+3. Proprosses your whole dataset using the same preprocessing stream as the sample set, applying icafix with your newly trained classifier.
+
 
 ### icarus-report 
 
@@ -57,7 +77,44 @@ Options:
  A text line shows up at the bottom with a command to save your ratings to hand_labels_noise.txt.
 ```
 
-# Some Examples:
+### icarus-compare
+```
+For generating an html report comparing two sets of labels
+
+Usage:
+  icarus_compare [options] <labelname1> <labelname2> <input.ica>...
+
+Arguments:
+    <labelname1>       Filename containing first (gold-standard) set of labels
+    <labelname2>       Filename containing second set of labels
+    <input.ica>        Ica output directories
+
+Options:
+  --csvreport FILE         Name of csv output of summary stats.
+  -v,--verbose             Verbose logging
+  --debug                  Debug logging in Erin's very verbose style
+  -n,--dry-run             Dry run
+  --help                   Print help
+
+DETAILS
+Runs makes an ica qc html page for all specified feat directories.
+
+All report pages have four sections:
+  1) False Alarms (labelname1 = signal, labelname2 = noise) - in yellow
+  2) Misses (labelname2 = noise, labelname1 = signal) - in purple
+  3) Hits (both labeled as signal) - in teal  
+  4) Correct Rejections (both labeled as noise) - in orange
+
+Writes an index page with some summary data.
+
+Default name for --csvreport is "compare_<labelname1>_vs_<labelname2>.csv"
+
+QC pages are interactive so that you can click buttons to manually rate signal and noise.
+A text line shows up at the bottom with a command to save your ratings to hand_labels_noise.txt.
+```
+
+
+### Usage Examples:
 
 To run ICArus and inspect ICA FIX performance after pre-preprocessing data using FSL's MELODIC GUI and running the ICA FIX with built in Standard.Rdata training set and a threshold of 20.
 
@@ -106,38 +163,3 @@ For those of us who are preprocessing data on a high performance cluster (or any
 icarus-report --copy-qcdir /path/to/copied/qc/files ${FEAT_OUTPUTS}
 ~~~
 
-### icarus-compare
-```
-For generating an html report comparing two sets of labels
-
-Usage:
-  icarus_compare [options] <labelname1> <labelname2> <input.ica>...
-
-Arguments:
-    <labelname1>       Filename containing first (gold-standard) set of labels
-    <labelname2>       Filename containing second set of labels
-    <input.ica>        Ica output directories
-
-Options:
-  --csvreport FILE         Name of csv output of summary stats.
-  -v,--verbose             Verbose logging
-  --debug                  Debug logging in Erin's very verbose style
-  -n,--dry-run             Dry run
-  --help                   Print help
-
-DETAILS
-Runs makes an ica qc html page for all specified feat directories.
-
-All report pages have four sections:
-  1) False Alarms (labelname1 = signal, labelname2 = noise) - in yellow
-  2) Misses (labelname2 = noise, labelname1 = signal) - in purple
-  3) Hits (both labeled as signal) - in teal  
-  4) Correct Rejections (both labeled as noise) - in orange
-
-Writes an index page with some summary data.
-
-Default name for --csvreport is "compare_<labelname1>_vs_<labelname2>.csv"
-
-QC pages are interactive so that you can click buttons to manually rate signal and noise.
-A text line shows up at the bottom with a command to save your ratings to hand_labels_noise.txt.
-```
